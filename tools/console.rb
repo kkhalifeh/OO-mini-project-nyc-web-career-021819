@@ -1,62 +1,40 @@
 require_relative '../config/environment.rb'
 
-grandma = User.new("Grandma")
-grandpa = User.new("Grandpa")
-steve = User.new("Steve")
+guy = User.new("Guy Fieri")
+masa = User.new("Masa")
 
-popcorn = Ingredient.new("Popcorn")
-butter = Ingredient.new("Butter")
-marshmallow = Ingredient.new("Marshmallow")
+dough = Ingredient.new("Dough")
+tomato = Ingredient.new("Tomato")
+cheese = Ingredient.new("Mozzerella Cheese")
+bacon = Ingredient.new("Bacon")
+salt = Ingredient.new("Salt")
+pepper = Ingredient.new("Pepper")
+eggs = Ingredient.new("Egg")
+pepperoni = Ingredient.new("Pepperoni")
+pizza_array = [dough, tomato, cheese]
+bacon_egg_cheese = [eggs, bacon, cheese, dough]
+salt_and_bacon = [salt,bacon]
+pepperoni_pizza_array = pizza_array+[pepperoni]
 
-eggs = Ingredient.new("Eggs")
-bread = Ingredient.new("Bread")
+pizza = Recipe.new()
+pizza.add_ingredient(pizza_array)
+bacon_cheese_sandwich = Recipe.new()
+bacon_cheese_sandwich.add_ingredient(bacon_egg_cheese)
+salt_bacon = Recipe.new()
+salt_bacon.add_ingredient(salt_and_bacon)
+pepperoni_pizza = Recipe.new()
+pepperoni_pizza.add_ingredient(pepperoni_pizza_array)
 
-hot_butter = Recipe.new("Hot Butter")
-popcorn = Recipe.new("Plain Popcorn")
-popcorn_balls = Recipe.new("Popcorn Balls")
-french_bread = Recipe.new("French Bread")
+# guys_pizza = RecipeCard.new(guy, pizza, '2/24', 10)
+guy.add_recipe_card(pizza, '2/24',10)
+guy.add_recipe_card(bacon_cheese_sandwich, '1/19', 8)
+guy.add_recipe_card(salt_bacon, '1/22', 7)
+guy.add_recipe_card(pepperoni_pizza, '2/4', 9)
+guy.declare_allergen(eggs)
+guy.declare_allergen(pepper)
+masa.add_recipe_card(salt_bacon, '9/1',5)
 
-hot_butter.add_ingredients([butter])
-popcorn.add_ingredients([popcorn])
-popcorn_balls.add_ingredients([popcorn, butter, marshmallow])
-french_bread.add_ingredients([eggs, bread])
+masa.declare_allergen(eggs)
+masa.declare_allergen(tomato)
 
-grandpa.declare_allergen(bread)
-
-steve.add_recipe_card(popcorn_balls, '2019-02-14', 5)
-steve.add_recipe_card(french_bread, '2016-02-14', 3)
-steve.add_recipe_card(popcorn, '2016-02-14', 4)
-steve.add_recipe_card(hot_butter, '2016-02-14', 1)
-
-grandma.add_recipe_card(french_bread, '1950-06-23', 4)
-grandma.add_recipe_card(popcorn, '1950-06-23', 4)
-
-grandpa.add_recipe_card(popcorn, '1965-06-23', 4)
-
-puts "all Steve's recipes"
-puts steve.recipes
-puts
-
-puts "Steve's Allergens"
-puts steve.allergens
-puts
-
-puts "Steve's top three recipes"
-puts steve.top_three_recipes
-puts
-
-puts "Steve's most-recent recipe"
-puts steve.most_recent_recipe
-puts
-
-puts "Grandpas Allergens"
-puts grandpa.allergens
-puts
-
-puts "Most common Allergen"
-puts Ingredient.most_common_allergen
-puts
-
-puts "Most Popular Recipe"
-puts Recipe.most_popular
-puts
+binding.pry

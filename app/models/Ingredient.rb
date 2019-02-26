@@ -1,35 +1,30 @@
 class Ingredient
-    attr_reader :name
-    @@all = []
 
-    def initialize(name)
-        @name = name
-        @@all << self
+  @@all = []
+
+  def initialize(name)
+    @name = name
+    @@all << self
+  end
+
+  def self.all
+    @@all
+  end
+
+  def allergens
+    Allergen.all.select do |allergen|
+      allergen.ingredient == self
     end
+  end
 
-    def self.all
-        @@all
-    end
+  def allergen_count
+    self.allergens.count
+  end
 
-    # Ingredient.most_common_allergen should return the ingredient instance that
-    # the highest number of users are allergic to
-    def self.most_common_allergen
-        tally = {}
-        most = nil
-        Allergen.all.each do |ingredient|
-            if tally[ingredient] == nil
-                tally[ingredient] = 0
-            end
-            tally[ingredient] += 1
+  def self.most_common_allergen
+    Ingredient.all.sort_by do |ingredient|
+      ingredient.allergen_count
+    end[-1]
+  end
 
-            if most == nil || tally[ingredient] > tally[most]
-                most = ingredient
-            end
-        end
-        most.ingredient
-    end
-
-    def to_s
-        @name
-    end
 end
